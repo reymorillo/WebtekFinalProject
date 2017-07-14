@@ -16,42 +16,36 @@ $result = mysqli_query($db, $sql);
             echo" <form name='editprofile' action='update2.php' method='POST'>
                 <div class='container'>
                     <div class='main-login main-center'>
-        
                         <div class='form-group'>
                             <small>First Name</small>
                                 <div>
                                     <input class='form-control' type='text' name='fName' value='$row[fName]'>
                                 </div>
                         </div>
-
                         <div class='form-group'>
                             <small>Middle Name</small>
                                 <div>
                                     <input class='form-control' type='text' name='mName' value='$row[mName]'>
                                 </div>
                         </div>
-         
                         <div class='form-group'>
                             <small>Last Name</small>
                                 <div>
                                     <input class='form-control' type='text' name='lName' value='$row[lName]'>
                                 </div>
                         </div>
-
                         <div class='form-group'>
                             <small>Username</small>
                                 <div>
                                     <input class='form-control' type='text' name='username' value='$row[username]'>
                             </div>      
                         </div>
-            
                         <div class='form-group'>
                             <small>Password</small>
                                 <div>
                                     <input class='form-control' type='text' name='password' value='$row[password]'>
                                 </div>
                         </div>
-            
                         <div class='form-group'>
                             <small>Upload Profile Photo:</small>
                                 <div>
@@ -63,8 +57,7 @@ $result = mysqli_query($db, $sql);
                         </div>
                     </div>
                 </div>
-            </form>";
-                    
+            </form>";            
         }
     }
 ?>
