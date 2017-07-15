@@ -1,90 +1,101 @@
 <?php
-	session_start();
-	include('config.php');
-
-	$sql = "SELECT p.id, CONCAT(u.fName, '&nbsp;', u.lName) as name, p.post, p.postedOn 
-			FROM posts p INNER JOIN users u ON p.accountID = u.accountID 
-			WHERE p.visibility = 'Public' ORDER BY p.postedOn DESC";
-	$result = mysqli_query($db, $sql);
-    $sql2 ="SELECT c.id, c.name, c.comments, c.date_publish from comment_box c ";
-    $result2 = mysqli_query($db, $sql2);
+	include('login.php');
+	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['accountType'] == 'User') {
+		header("Location: User/index.php");
+	} else {
+		$_SESSION["accountType"] = 'Invalid';
+		session_destroy();
+	}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Community</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="style/style.css">
-	
-	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	 
+	 <style>
+	 	body{
+   			background-color: #E4DFDA; 
+		}
 
+        #box{
+    		border: 1px solid rgb(200, 200, 200);
+    		box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+    		background: rgba(200, 200, 200, 0.1);
+    		border-radius: 4px;
+    		top:50px;
+		}
+
+		img{
+			display: block;
+    		margin: 0 auto;
+		}
+
+		h2{
+    		text-align:center;
+    		color:#d9534f;
+		}
+
+    </style>
+	
 </head>
+	<img src="finallogo.png">
 <body>
-	<header>
-     
-		<form method="POST" action="search.php">
-    
-			<input type="search" placeholder="Search for more friends">
-			<noscript><input type='submit' value='Submit'></noscript>
-		</form>
-         
-		<nav>
-			<ul>
-				<li>Login As
-					<?php
-						echo "".$_SESSION['username']."";
-					?>
-				</li>
-				<li><a href="requests.php">Requests</a></li>
-				<li><a href="messages.php">Messages</a></li>
-				<li><a href="profile.php">Profile</a></li> <!--insert php code to fetch user's name (optional)-->
-				<li><a href="logout.php">Log out</a></li>
-			</ul>
-		</nav>
-	</header>
-	<div class="body">
-		<div class="post">
-			<form class="form-post" method = "POST" action="post.php" enctype="multipart/form-data">
-				<textarea class="form-control" name="textarea" type="text" placeholder="Write what's on your mind."></textarea>
-                <input name="image" id="image" type="file" multiple accept="image/gif, image/jpeg, image/png">
-				<select name="visibility">
-					<option name="option1" value="Public">Public</option>
-					<option name="option2" value="Private">Private</option>
-				</select>
-                <button type="submit">Post</button>
-			</form>
-		</div>
-		<?php
-			if($result->num_rows > 0) {
-				while($row = mysqli_fetch_array($result)) {
-					echo "<article class='post'>
-							<h3>".$row['name']."</h3>
-							<small>".$row['postedOn']."</small>
-							<p>".$row['post']."</p>";
-                            echo "<form action='insert.php' method='POST' enctype='multipart/form-data'>
-                            
-                                <textarea name='comments' placeholder='Leave Comments Here...' ></textarea>
-                                <input name='postid' type='hidden' oncopy='return false' onpaste='return false' onkeyup='javascript:this.value=this.value.replace(/[<,>]/g,'');' value='$row[id]'/>
-                                <input type='submit' value='Submit'>";
-                            if($result2->num_rows > 0 ){
-                            while($rows=mysqli_fetch_array($result2)){
-                                echo "<div class='comments_content'>";
-                                echo "<h4><a href='delete.php?id=" . $rows['id'] . "'> X</a></h4>";
-                                echo "<h1>" . $rows['name'] . "</h1>";
-                                echo "<h2>" . $rows['date_publish'] . "</h2></br></br>";
-                                echo "<h3>" . $rows['comments'] . "</h3>";
-                                echo "</div>";
-                                }
-                            }
-						echo"</article>"; 
-				}
-			}
-		?>
+	<div class="container-fluid">
+                <div class="row-fluid" >
+                   
+                      
+                     <div class="col-md-offset-4 col-md-4" id="box">
+                      <h2>Login</h2>
+                       
+                            <hr>
+                           
+
+                                <form class="form-horizontal" method="POST" id="contact_form">
+                                    <fieldset>
+                                        <!-- Form Name -->
+
+
+                                        <!-- Text input-->
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                    <input name="username" placeholder="Username" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                  
+                                        <!-- Text input-->
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                    <input name="password" placeholder="Password" class="form-control" type="password">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    
+                                   
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-md btn-danger pull-right">Login </button>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </form>
+                    </div> 
+				</div>
 	</div>
-	<footer>
-		<div>
-			<p>Copyright &copy; 2017 <a href="">Community</a></p>
-		</div>
-	</footer>
 </body>
 </html>
