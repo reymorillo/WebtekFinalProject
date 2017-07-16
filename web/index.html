@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <style>
+	 	body{
+   			background-color: #E4DFDA; 
+		}
+        #box{
+    		border: 1px solid rgb(200, 200, 200);
+    		box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+    		background: rgba(200, 200, 200, 0.1);
+    		border-radius: 4px;
+    		top:50px;
+		}
+		img{
+		display: block;
+    		margin: 0 auto;
+		}
+		h2{
+    		text-align:center;
+    		color:#d9534f;
+		}
+                button{background-color: #d9534f; 
+                       color:white; 
+                       padding: 14px 20px; 
+                       margin:8px; 
+                       border:none; 
+                       cursor:pointer;width:10%}
+                button:hover{opacity:0.5}
+    </style>
+    </head>
+    	<img src="finallogo.jpg" height="100" width="150">
+    <body>
+           <center>     
+        <h2>Login</h2>
+        <form  action="login" method="POST">
+            <p>Username:<br><input name="username" type="text" id="username" placeholder="Enter Username" required> </p>
+            <p>Password:<br><input name="password" type="password" id="password" placeholder="Enter Password" required></p>
+            <button id="login" type="submit">Log in</button>
+	</form>
+
+        <h2>Registration Form</h2>
+        <form action="SaveUser" method="POST" enctype="multipart/form-data" >
+            <p>ID Number:<br><input type="number" name="idno" required></p>
+            <p>First Name:<br><input type="text" name="fName" required></p>
+            <p>Middle Name:<br><input type="text" name="mName" required></p>
+            <p>Last Name:<br><input type="text" name="lName" required></p>
+            <p>Username:<br><input type="text" name="username" required></p>
+            <p>Password:<br><input type="password" name="password" required></p>
+            <p>Gender:</p>
+            <select>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <p>Profile Image:<br><input type="file" name="image" required></p>
+            <button id="Register" type="submit" value="Register">Register</button>
+        </form>
+        </center>
+        <hr>
+    </body>
+</html>
